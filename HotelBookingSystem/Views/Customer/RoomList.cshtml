@@ -1,0 +1,78 @@
+﻿@model List<HotelBookingSystem.Models.Room>
+
+@{
+    ViewData["Title"] = "Search Results";
+}
+
+<h2 class="text-center mb-4">🏨 Search Results</h2>
+
+@if (!string.IsNullOrEmpty(ViewBag.Message))
+{
+    <p class="text-danger text-center">@ViewBag.Message</p>
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        @for (int i = 0; i < Model.Count; i += 2)
+        {
+            <div class="col-md-10 mb-4">
+                <div class="row g-4">
+                    @for (int j = i; j < i + 2 && j < Model.Count; j++)
+                    {
+                        var room = Model[j];
+                        <div class="col-md-6">
+                            <div class="card shadow-lg p-3 room-card">
+                                <div class="row g-0">
+                                    <!-- Left: Room Image -->
+                                    <div class="col-md-5">
+                                        @if (room.Image != null)
+                                        {
+                                            <img src="data:image;base64,@(Convert.ToBase64String(room.Image))"
+                                                 class="room-image"
+                                                 alt="Room Image">
+                                        }
+                                    </div>
+
+                                    <!-- Right: Room Info -->
+                                    <div class="col-md-7">
+                                        <div class="card-body">
+                                            <h5 class="card-title">@room.RoomName</h5>
+                                            <p class="card-text"><strong>📍 Location:</strong> @room.Location</p>
+                                            <p class="card-text"><strong>💰 Rent:</strong> ₹@room.Rent / per day</p>
+
+                                            <a asp-controller="Customer" asp-action="RoomDetails" asp-route-id="@room.RoomId"
+                                               class="btn btn-primary">View Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Styling -->
+<style>
+    /* Room Card Styling */
+    .room-card {
+        border-radius: 12px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .room-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+    /* Room Image */
+    .room-image {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+    }
+</style>

@@ -1,0 +1,234 @@
+﻿@model HotelBookingSystem.Models.Room
+
+@{
+    ViewData["Title"] = $"{Model.RoomName} Details";
+}
+
+<div class="container py-5">
+    <!-- Header Section -->
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold text-gradient-primary mb-3">@Model.RoomName</h1>
+        <div class="d-flex justify-content-center align-items-center gap-3">
+            <span class="badge @(Model.IsAvailable ? "bg-success" : "bg-danger") fs-6">
+                @(Model.IsAvailable ? "Available" : "Booked")
+            </span>
+            <span class="text-muted">|</span>
+            <span class="text-primary fw-bold fs-5">₹@Model.Rent <span class="text-muted fs-6">/ night</span></span>
+        </div>
+    </div>
+
+    <!-- Image Gallery Section -->
+    <div class="row g-4 mb-5">
+        <!-- Main Image -->
+        <div class="col-md-8">
+            <div class="room-main-image rounded-4 overflow-hidden shadow-lg">
+                @if (Model.Image != null)
+                {
+                    <img src="data:image;base64,@(Convert.ToBase64String(Model.Image))"
+                         alt="@Model.RoomName"
+                         class="img-fluid w-100 h-100 object-cover cursor-zoom"
+                         data-bs-toggle="modal"
+                         data-bs-target="#roomImageModal">
+                }
+                else
+                {
+                    <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                         class="img-fluid w-100 h-100 object-cover"
+                         alt="Room Image">
+                }
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm rounded-4 overflow-hidden sticky-top" style="top: 20px;">
+                <div class="card-body p-4">
+                    <h4 class="fw-bold mb-4">Book This Room</h4>
+
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <div>
+                            <span class="d-block fw-bold fs-5">₹@Model.Rent</span>
+                            <span class="text-muted small">per night</span>
+                        </div>
+                        <span class="badge @(Model.IsAvailable ? "bg-success" : "bg-danger")">
+                            @(Model.IsAvailable ? "Available" : "Booked")
+                        </span>
+                    </div>
+
+                    <form>
+
+                     
+
+                        <a asp-controller="Account" asp-action="Login" class="btn btn-outline-primary w-100 rounded-pill">
+                            <i class="fas fa-calendar-check me-2"></i>Book Now
+                        </a>
+
+
+                    </form>
+
+                    <div class="text-center mt-3">
+                        <a asp-controller="Room" asp-action="Index" class="btn btn-outline-primary w-100 rounded-pill">
+                            <i class="fas fa-arrow-left me-2"></i>Back to Rooms
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <!-- Details Section -->
+    <div class="row g-4">
+        <!-- Left Column - Room Info -->
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
+                <div class="card-body p-4">
+                    <h3 class="fw-bold mb-4">About This Room</h3>
+                    <p class="lead">@Model.Description</p>
+
+                    <div class="mt-4 pt-3 border-top">
+                        <h4 class="fw-bold mb-3">Room Features</h4>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <ul class="list-unstyled">
+                                    <li class="mb-2"><i class="fas fa-wifi text-primary me-2"></i> High-speed WiFi</li>
+                                    <li class="mb-2"><i class="fas fa-tv text-primary me-2"></i> Smart TV</li>
+                                    <li class="mb-2"><i class="fas fa-thermometer-three-quarters text-primary me-2"></i> Air Conditioning</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <ul class="list-unstyled">
+                                    <li class="mb-2"><i class="fas fa-coffee text-primary me-2"></i> Coffee Maker</li>
+                                    <li class="mb-2"><i class="fas fa-lock text-primary me-2"></i> Safe Deposit Box</li>
+                                    <li class="mb-2"><i class="fas fa-bath text-primary me-2"></i> Private Bathroom</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+          
+
+        <!-- Right Column - Booking Card -->
+@*         <div class="col-lg-4"> *@
+@*             <div class="card border-0 shadow-sm rounded-4 overflow-hidden sticky-top" style="top: 20px;"> *@
+@*                 <div class="card-body p-4"> *@
+@*                     <h4 class="fw-bold mb-4">Book This Room</h4> *@
+
+@*                     <div class="d-flex align-items-center justify-content-between mb-4"> *@
+@*                         <div> *@
+@*                             <span class="d-block fw-bold fs-5">₹@Model.Rent</span> *@
+@*                             <span class="text-muted small">per night</span> *@
+@*                         </div> *@
+@*                         <span class="badge @(Model.IsAvailable ? "bg-success" : "bg-danger")"> *@
+@*                             @(Model.IsAvailable ? "Available" : "Booked") *@
+@*                         </span> *@
+@*                     </div> *@
+
+@*                     <form> *@
+                       
+@*                         <div class="mb-4"> *@
+@*                             <label class="form-label fw-bold">Guests</label> *@
+@*                             <select class="form-select rounded-3"> *@
+@*                                 <option>1 Adult</option> *@
+@*                                 <option>2 Adults</option> *@
+@*                                 <option>3 Adults</option> *@
+@*                                 <option>4 Adults</option> *@
+@*                             </select> *@
+@*                         </div> *@
+
+@*                             <a asp-controller="Account" asp-action="Login" class="btn btn-outline-primary w-100 rounded-pill"> *@
+@*                                 <i class="fas fa-calendar-check me-2"></i>Book Now *@
+@*                             </a> *@
+  
+                      
+@*                     </form> *@
+
+@*                     <div class="text-center mt-3"> *@
+@*                         <a asp-controller="Room" asp-action="Index" class="btn btn-outline-primary w-100 rounded-pill"> *@
+@*                             <i class="fas fa-arrow-left me-2"></i>Back to Rooms *@
+@*                         </a> *@
+@*                     </div> *@
+@*                 </div> *@
+@*             </div> *@
+@*         </div> *@
+@*     </div> *@
+@* </div> *@
+
+<!-- Image Modal -->
+<div class="modal fade" id="roomImageModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content bg-transparent border-0">
+            <div class="modal-header border-0">
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center p-0">
+                <img src="data:image;base64,@(Convert.ToBase64String(Model.Image))"
+                     class="img-fluid rounded-3"
+                     alt="@Model.RoomName">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CSS Styles -->
+<style>
+    :root {
+        --primary-color: #4e66f8;
+        --primary-hover: #3a56f7;
+    }
+
+    .text-gradient-primary {
+        background: linear-gradient(90deg, var(--primary-color), #6c47ff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .room-main-image {
+        height: 400px;
+        background-color: #f8f9fa;
+    }
+
+    .room-thumbnail {
+        height: 190px;
+        background-color: #f8f9fa;
+        transition: all 0.3s ease;
+    }
+
+        .room-thumbnail:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+    .cursor-zoom {
+        cursor: zoom-in;
+    }
+
+    .object-cover {
+        object-fit: cover;
+    }
+
+    .rounded-4 {
+        border-radius: 1rem !important;
+    }
+
+    .sticky-top {
+        position: sticky;
+        z-index: 1;
+    }
+
+    .btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+    }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            border-color: var(--primary-hover);
+        }
+</style>
+
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">

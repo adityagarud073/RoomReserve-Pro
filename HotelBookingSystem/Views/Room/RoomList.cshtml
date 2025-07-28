@@ -1,0 +1,98 @@
+﻿@model List<Room>
+
+<div class="container mt-4">
+    <h3 class="text-center mb-4">Manage Rooms</h3>
+
+    <div class="row">
+        @foreach (var room in Model)
+        {
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-lg rounded-3 border-0 room-card">
+                    <div class="row g-0 align-items-center">
+                        <!-- Left Corner - Room Image -->
+                        <div class="col-md-4">
+                            <a asp-action="RoomDetails" asp-route-id="@room.RoomId" class="room-link">
+                                @if (room.Image != null)
+                                {
+                                    <img src="data:image/jpeg;base64,@Convert.ToBase64String(room.Image)"
+                                         class="img-fluid rounded-start room-img"
+                                         alt="Room Image">
+                                }
+                                else
+                                {
+                                    <img src="https://via.placeholder.com/300"
+                                         class="img-fluid rounded-start room-img"
+                                         alt="No Image Available">
+                                }
+                            </a>
+                        </div>
+
+                        <!-- Middle Section - Room Info -->
+                        <div class="col-md-5 d-flex flex-column justify-content-center px-3">
+                            <h5 class="fw-bold text-primary">@room.RoomName</h5>
+                            <p class="text-muted small">@room.Description</p>
+                            <p class="mb-1"><strong>📍 Location:</strong> @room.Location</p>
+                            <p class="mb-1"><strong>💰 Rent:</strong> ₹@room.Rent / Night</p>
+                            <p class="mb-0">
+                                <strong>🟢 Status:</strong>
+                                <span class="badge @(room.IsBooked ? "bg-danger" : "bg-success")">
+                                    @(room.IsBooked ? "Booked" : "Available")
+                                </span>
+                            </p>
+                        </div>
+
+                        <!-- Right Corner - Actions -->
+                        <div class="col-md-3 text-end p-3">
+                            <div class="d-flex flex-column gap-2">
+                                
+
+                                <button type="button" class="btn btn-danger w-100"
+                                        onclick="confirmDeletion(@room.RoomId)">
+                                    Delete Room
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- JavaScript for Confirm Modals -->
+<script>
+    function confirmBooking(roomId) {
+        if (confirm("Are you sure you want to book this room?")) {
+            window.location.href = "/Room/BookRoom/" + roomId;
+        }
+    }
+
+    function confirmDeletion(roomId) {
+        if (confirm("Are you sure you want to delete this room?")) {
+            window.location.href = "/Room/DeleteRoom/" + roomId;
+        }
+    }
+</script>
+
+<!-- CSS for Hover Effects -->
+<style>
+    .room-card {
+        transition: transform 0.3s ease-in-out;
+    }
+
+        .room-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+    .room-img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .room-link {
+        text-decoration: none;
+    }
+</style>

@@ -1,0 +1,59 @@
+﻿@model HotelBookingSystem.Models.Room
+
+@{
+    ViewData["Title"] = "Room Details";
+}
+
+<h2 class="mb-3 text-center">🛏️ @Model.RoomName Details</h2>
+
+<!-- Image Section Click to view 
+@if (Model.Image != null)
+{
+    <div class="text-center mb-3">
+        <img src="data:image;base64,@(Convert.ToBase64String(Model.Image))"
+             alt="Room Image"
+             class="rounded shadow"
+             style="height: 150px; width: auto; object-fit: cover; cursor: pointer;"
+             data-bs-toggle="modal"
+             data-bs-target="#roomImageModal">
+    </div>
+}
+
+<!-- Bootstrap Modal for Enlarged Image -->
+<div class="modal fade" id="roomImageModal" tabindex="-1" aria-labelledby="roomImageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="data:image;base64,@(Convert.ToBase64String(Model.Image))"
+                     class="img-fluid rounded"
+                     alt="Room Image">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Information Card -->
+<div class="card shadow-sm mx-auto p-3" style="max-width: 450px; border-radius: 15px;">
+    <div class="card-body">
+        <p class="mb-3"><strong>🏨 Hotel Name:</strong></p>
+        <p class="border-bottom pb-2">@Model.RoomName</p>
+
+        <p class="mb-3"><strong>ℹ️ Room Description:</strong></p>
+        <p class="border-bottom pb-2">@Model.Description</p>
+
+        <p class="mb-3"><strong>💰 Hotel Room Rent:</strong></p>
+        <p class="border-bottom pb-2">₹@Model.Rent / per day</p>
+
+        <p class="mb-3"><strong>📍 Hotel Location:</strong></p>
+        <p class="border-bottom pb-2">@Model.Location</p>
+
+        <p class="mb-3"><strong>✅ Available:</strong></p>
+        <p class="border-bottom pb-2">@(Model.IsAvailable ? "✔ Yes" : "❌")</p>
+
+        <div class="text-center mt-3">
+            <a asp-controller="Room" asp-action="Roomlist" class="btn btn-primary">
+                🔙 Back
+            </a>
+        </div>
+    </div>
+</div>

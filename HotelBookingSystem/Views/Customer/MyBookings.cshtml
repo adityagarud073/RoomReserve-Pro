@@ -1,0 +1,37 @@
+﻿@model IEnumerable<HotelBookingSystem.Models.Booking>
+
+<h2>My Bookings</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Room Name</th>
+            <th>Booking Date</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var booking in Model)
+        {
+            <tr>
+                <td>@booking.Room.RoomName</td>
+                <td>@booking.BookingDate.ToShortDateString()</td>
+                <td>
+                    @if (booking.IsConfirmed)
+                    {
+                        <span class="text-success">Confirmed ✅</span>
+                    }
+                    else if (!booking.IsRejected && booking.BookingDate < DateTime.Now)
+                    {
+                        <span class="text-warning">Pending ⏳</span>
+                    }
+                    else
+                    {
+                        <span class="text-danger">Your Booking Rejected ❌</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

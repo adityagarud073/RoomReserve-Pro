@@ -1,0 +1,150 @@
+﻿@model List<Room>
+
+<div class="container mt-5">
+    <div class="text-center mb-5">
+        <h2 class="fw-bold text-gradient-primary">Discover Our Rooms</h2>
+        <p class="lead text-muted">Find the perfect space for your next stay</p>
+    </div>
+
+    <div class="row g-4">
+        @foreach (var room in Model)
+        {
+            <div class="col-lg-6">
+                <div class="card room-card h-100 border-0 overflow-hidden shadow-hover">
+                    <div class="row g-0 h-100">
+                        <!-- Room Image -->
+                        <div class="col-md-5 position-relative">
+                            <a asp-action="FrontRoom" asp-route-id="@room.RoomId" class="room-link h-100">
+                                @if (room.Image != null)
+                                {
+                                    <img src="data:image/jpeg;base64,@Convert.ToBase64String(room.Image)"
+                                         class="img-fluid h-100 w-100 object-cover"
+                                         alt="@room.RoomName">
+                                }
+                                else
+                                {
+                                    <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+                                         class="img-fluid h-100 w-100 object-cover"
+                                         alt="Room Image">
+                                }
+                                <div class="position-absolute top-0 end-0 m-2">
+                                    <span class="badge @(room.IsBooked ? "bg-danger" : "bg-success") shadow-sm">
+                                        @(room.IsBooked ? "Booked" : "Available")
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Room Details -->
+                        <div class="col-md-7 d-flex flex-column">
+                            <div class="card-body p-4">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <h5 class="card-title fw-bold mb-0 text-truncate">@room.RoomName</h5>
+                                    <p class="text-primary fw-bold mb-0">₹@room.Rent<span class="text-muted small">/day</span></p>
+                                </div>
+
+                                <div class="mb-3">
+                                    <span class="text-muted small d-flex align-items-center">
+                                        <i class="fas fa-map-marker-alt me-1 small"></i> @room.Location
+                                    </span>
+                                </div>
+
+                                <p class="card-text text-muted mb-3 line-clamp-2">@room.Description</p>
+
+                                <div class="mt-auto">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="room-features">
+                                            <span class="badge bg-light text-dark me-1 mb-1">
+                                                <i class="fas fa-bed me-1"></i> 1 King
+                                            </span>
+                                            <span class="badge bg-light text-dark me-1 mb-1">
+                                                <i class="fas fa-wifi me-1"></i> WiFi
+                                            </span>
+                                            <span class="badge bg-light text-dark mb-1">
+                                                <i class="fas fa-tv me-1"></i> TV
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-footer bg-transparent border-top-0 p-3 pt-0">
+                                <div class="d-grid gap-2">
+                                    <a href="Account/Login" class="btn btn-primary rounded-pill">
+                                        <i class="fas fa-calendar-check me-2"></i>Book Now
+                                    </a>
+                                    <a asp-action="FrontRoom" asp-route-id="@room.RoomId" class="btn btn-outline-primary rounded-pill">
+                                        <i class="fas fa-info-circle me-2"></i>View Details
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- CSS Styles -->
+<style>
+    :root {
+        --primary-color: #4e66f8;
+        --primary-hover: #3a56f7;
+    }
+
+    .text-gradient-primary {
+        background: linear-gradient(90deg, var(--primary-color), #6c47ff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .shadow-hover {
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    .room-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+    }
+
+    .object-cover {
+        object-fit: cover;
+    }
+
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .room-link {
+        display: block;
+        height: 100%;
+        transition: all 0.3s ease;
+    }
+
+        .room-link:hover {
+            opacity: 0.9;
+        }
+
+    .btn-rounded {
+        border-radius: 50px;
+    }
+
+    .room-features .badge {
+        font-weight: normal;
+        padding: 5px 8px;
+        font-size: 0.75rem;
+    }
+
+    .rounded-pill {
+        border-radius: 50px !important;
+    }
+</style>
+
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">

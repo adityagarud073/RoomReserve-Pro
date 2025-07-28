@@ -1,0 +1,23 @@
+﻿<h2 class="text-center">🏨 Room Ratings</h2>
+
+<table class="table table-bordered mt-4">
+    <thead class="table-dark">
+        <tr>
+            <th>👤 Customer</th>
+            <th>⭐ Rating</th>
+            <th>📝 Review</th>
+            <th>🏠 Room</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var rating in Model)
+        {
+            <tr>
+                <td>@rating.CustomerName</td>
+                <td>@rating.Stars/5</td>
+                <td>@rating.Review</td>
+                <td>@rating.Room.RoomName</td>
+            </tr>
+        }
+    </tbody>
+</table>

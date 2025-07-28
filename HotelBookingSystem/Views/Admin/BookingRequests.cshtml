@@ -1,0 +1,54 @@
+﻿@model IEnumerable<HotelBookingSystem.Models.Booking>
+
+<h2>Booking Requests</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Room Name</th>
+            @* <th>Customer ID</th> *@
+            <th>Booking Date</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var booking in Model)
+        {
+            <tr>
+                <td>@booking.Room.RoomName</td>
+                @* <td>@booking.CustomerId</td> *@
+                <td>@booking.BookingDate.ToShortDateString()</td>
+                <td>
+                    @if (booking.IsConfirmed)
+                    {
+                        <span class="text-success">Confirmed ✅</span>
+                    }
+                    else if (booking.IsRejected)
+                    {
+                        <span class="text-danger">Rejected ❌</span>
+                    }
+                    else
+                    {
+                        <span class="text-warning">Pending ⏳</span>
+                    }
+                </td>
+                <td>
+                    @if (!booking.IsConfirmed && !booking.IsRejected)
+                    {
+                        <a asp-action="ConfirmBooking" asp-route-id="@booking.BookingId" class="btn btn-success">Confirm</a>
+                        <a asp-action="RejectConfirmation" asp-route-id="@booking.BookingId" class="btn btn-danger">Reject</a>
+                    }
+                    else if (booking.IsConfirmed)
+                    {
+                        <button class="btn btn-success" disabled>Confirmed</button>
+                    }
+                    else if (booking.IsRejected)
+                    {
+                        <button class="btn btn-danger" disabled>Rejected</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

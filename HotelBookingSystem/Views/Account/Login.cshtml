@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card p-4 shadow-lg rounded" style="width: 380px;">
+        <h2 class="text-center fw-bold text-primary">🔐 Login</h2>
+
+        @if (!string.IsNullOrEmpty(ViewBag.Message))
+        {
+            <div class="alert alert-danger text-center py-2">@ViewBag.Message</div>
+        }
+
+        <form method="post">
+            <div class="mb-3">
+                <label class="form-label fw-semibold">📧 Email:</label>
+                <input type="email" name="Email" class="form-control rounded-3" required placeholder="Enter your email" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">🔑 Password:</label>
+                <input type="password" name="Password" class="form-control rounded-3" required placeholder="Enter your password" />
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 py-2 fw-bold rounded-3">Login</button>
+        </form>
+
+        <div class="text-center mt-3">
+            <p class="mb-0">New here? <a asp-controller="Account" asp-action="Register" class="text-decoration-none fw-bold">Register Now</a></p>
+        </div>
+    </div>
+</div>

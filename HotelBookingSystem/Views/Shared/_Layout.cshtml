@@ -1,0 +1,117 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - HotelBookingSystem</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/HotelBookingSystem.styles.css" asp-append-version="true" />
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    </head>
+
+</head>
+<body>
+    <header>
+        @using Microsoft.AspNetCore.Http
+
+        @{
+            var userId = Context.Session.GetInt32("UserId");
+            var userRole = Context.Session.GetString("UserRole");
+        }
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+
+                @if (userRole == "Admin"){
+
+                <a class="navbar-brand" asp-controller="Room" asp-action="RoomList">HotelBookingSystem</a>
+
+                }
+                else if (userRole == "Customer")
+                {
+                    <a class="navbar-brand" asp-controller="Customer" asp-action="AvailableRooms">HotelBookingSystem</a>
+                }
+                else{
+
+                <a class="navbar-brand" asp-controller="Room" asp-action="Index">HotelBookingSystem</a>
+
+                }
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                      
+                        @if (userId != null)
+                        {
+                            if (userRole == "Admin")
+                            {
+                                
+                                <li class="nav-item">
+                                    <a class="nav-link fw-bold fs-6" asp-controller="Room" asp-action="RoomList">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link fw-bold fs-6" asp-controller="Room" asp-action="AddRoom">Add Room</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link fw-bold fs-6" asp-controller="Admin" asp-action="BookingRequests">Manage Bookings</a>
+                                </li>
+                            }
+                            else if (userRole == "Customer")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link fw-bold fs-6" asp-controller="Customer" asp-action="AvailableRooms">Available Rooms</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link fw-bold fs-6" asp-controller="Customer" asp-action="MyBookings">My Bookings</a>
+                                </li>
+                                <li class="nav-item">
+                                    <form asp-controller="Customer" asp-action="SearchRooms" method="get" class="d-flex me-3">
+                                        <input type="text" name="location" class="form-control me-2" placeholder="🔍 Search by Location..." required>
+                                        <button type="submit" class="btn btn-success">Search</button>
+                                    </form>
+                                </li>
+                            }
+                            <li class="nav-item">
+                                <button class="bg-danger">
+                                <a class="nav-link text-light fw-bold fs-6" asp-controller="Account" asp-action="Logout">Logout</a>
+                                </button>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                @* <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a> *@
+                                <a class="nav-link fw-bold fs-6 me-3" asp-controller="Account" asp-action="Login">Login</a>
+
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link fw-bold fs-6" asp-controller="Account" asp-action="Register">Register</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+
+            </div>
+        </nav>
+
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2025 - HotelBookingSystem - <a asp-area="" asp-controller="Account" asp-action="About">About My Project</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

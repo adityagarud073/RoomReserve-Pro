@@ -1,0 +1,57 @@
+﻿@model Room
+
+<div class="container mt-5">
+    <div class="card shadow-lg p-4">
+        <h2 class="text-danger text-center">Confirm Room Deletion</h2>
+        <hr>
+        <div class="row">
+            <!-- Left Side: Room Image -->
+            <div class="col-md-5">
+                @if (Model.Image != null)
+                {
+                    <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.Image)" class="img-fluid rounded" alt="Room Image">
+                }
+                else
+                {
+                    <img src="https://via.placeholder.com/400" class="img-fluid rounded" alt="No Image Available">
+                }
+            </div>
+
+            <!-- Right Side: Room Details -->
+            <div class="col-md-7">
+                <h4>@Model.RoomName</h4>
+                <p><strong>Location:</strong> @Model.Location</p>
+                <p><strong>Rent:</strong> ₹@Model.Rent / per Day</p>
+                <p class="text-danger"><strong>Status:</strong> @(Model.IsBooked ? "Booked" : "Available")</p>
+
+                <!-- Confirm Delete Button -->
+                <form asp-action="DeleteConfirmed" asp-route-id="@Model.RoomId" method="post" id="deleteForm">
+                    <button type="button" class="btn btn-danger w-100 mt-3" onclick="confirmDelete()">Delete Room</button>
+                </form>
+
+                <!-- Back Button -->
+                <a asp-action="RoomList" class="btn btn-secondary w-100 mt-2">Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SweetAlert2 for Confirmation -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function confirmDelete() {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "Once deleted, you cannot recover this room!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#6c757d",
+            confirmButtonText: "Yes, Delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById("deleteForm").submit();
+            }
+        });
+    }
+</script>

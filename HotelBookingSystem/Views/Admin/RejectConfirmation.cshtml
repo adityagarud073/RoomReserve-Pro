@@ -1,0 +1,33 @@
+﻿@model HotelBookingSystem.Models.Booking
+
+@{
+    ViewData["Title"] = "Reject Booking Confirmation";
+}
+
+<h2>Are you sure you want to reject this booking?</h2>
+
+<table class="table">
+    <tr>
+        <th>Booking ID</th>
+        <td>@Model.BookingId</td>
+    </tr>
+    <tr>
+        <th>Room Name</th>
+        <td>@Model.Room.RoomName</td>
+    </tr>
+    <tr>
+        <th>Customer</th>
+        <td>@Model.CustomerId</td>
+    </tr>
+    <tr>
+        <th> Date</th>
+        <td>@Model.BookingDate.ToShortDateString()</td>
+    </tr>
+   
+</table>
+
+<form asp-controller="Admin" asp-action="RejectBooking" method="post">
+    <input type="hidden" name="id" value="@Model.BookingId" />
+    <button type="submit" class="btn btn-danger">Yes, Reject Booking</button>
+    <a asp-action="BookingRequests" class="btn btn-secondary">Cancel</a>
+</form>

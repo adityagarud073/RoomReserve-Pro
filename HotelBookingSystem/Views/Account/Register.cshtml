@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card p-4 shadow-lg rounded" style="width: 400px;">
+        <h2 class="text-center fw-bold text-success">📝 Register</h2>
+
+        @if (!string.IsNullOrEmpty(ViewBag.Message))
+        {
+            <div class="alert alert-danger text-center py-2">@ViewBag.Message</div>
+        }
+
+        <form method="post" action="/Account/Register">
+            <div class="mb-3">
+                <label class="form-label fw-semibold">👤 Full Name:</label>
+                <input type="text" name="FullName" class="form-control rounded-3" required placeholder="Enter your full name" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">📧 Email:</label>
+                <input type="email" name="Email" class="form-control rounded-3" required placeholder="Enter your email" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">🔑 Password:</label>
+                <input type="password" name="PasswordHash" class="form-control rounded-3" required placeholder="Create a password" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">🛠️ Role:</label>
+                <select name="Role" class="form-select rounded-3">
+                    <option value="Customer">Customer</option>
+                    <option value="Admin">Admin</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100 py-2 fw-bold rounded-3">Register</button>
+        </form>
+
+        <div class="text-center mt-3">
+            <p class="mb-0">Already have an account? <a asp-controller="Account" asp-action="Login" class="text-decoration-none fw-bold">Login Here</a></p>
+        </div>
+    </div>
+</div>

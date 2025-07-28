@@ -1,0 +1,66 @@
+﻿@model HotelBookingSystem.Models.Room
+
+<h2 class="text-center mb-4">📅 Confirm Your Booking</h2>
+
+<div class="container">
+    <div class="card p-4 shadow-lg rounded" style="max-width: 500px; margin: auto;">
+        <!-- Room Image -->
+        @if (Model.Image != null)
+        {
+            <div class="text-center">
+                <img src="data:image;base64,@(Convert.ToBase64String(Model.Image))"
+                     class="room-image rounded shadow mb-3"
+                     alt="Room Image">
+            </div>
+        }
+
+        <!-- Room Details -->
+        <h4 class="text-primary">🛏️ @Model.RoomName</h4>
+        <p class="text-muted">@Model.Description</p>
+        <p><strong>💰 Rent:</strong> ₹@Model.Rent / per day</p>
+        <p><strong>📍 Location:</strong> @Model.Location</p>
+
+        <!-- Booking Form -->
+        <form asp-controller="Customer" asp-action="ConfirmBooking" method="post">
+            <input type="hidden" name="roomId" value="@Model.RoomId" />
+
+            <div class="mb-3">
+                <label for="FullName" class="form-label">👤 Your Name</label>
+                <input type="text" name="FullName" class="form-control" placeholder="Enter your full name" required />
+            </div>
+
+            <div class="mb-3">
+                <label for="Email" class="form-label">📧 Your Email</label>
+                <input type="email" name="Email" class="form-control" placeholder="Enter your email address" required />
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-success w-100">✅ Confirm Booking</button>
+                @* <a href=""></a> *@
+                <a asp-controller="Customer" asp-action="AvailableRooms" class="btn btn-secondary w-100 mt-2">🔙 Back</a>
+            </div>
+         
+        </form>
+    </div>
+</div>
+
+<!-- Styling -->
+<style>
+    /* Room Image Styling */
+    .room-image {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+        .room-image:hover {
+            transform: scale(1.05);
+        }
+
+    /* Card Styling */
+    .card {
+        border-radius: 15px;
+    }
+</style>

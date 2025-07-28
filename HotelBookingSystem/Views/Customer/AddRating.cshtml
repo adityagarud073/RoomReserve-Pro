@@ -1,0 +1,62 @@
+﻿@model HotelBookingSystem.Models.Room
+
+<h2 class="mb-4 text-center">🛏️ @Model.RoomName Details</h2>
+
+<!-- Room Details Display -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Room Image -->
+            @if (Model.Image != null)
+            {
+                <img src="data:image;base64,@(Convert.ToBase64String(Model.Image))"
+                     alt="Room Image"
+                     class="room-thumbnail">
+            }
+        </div>
+        <div class="col-md-6">
+            <h4>ℹ️ Description:</h4>
+            <p>@Model.Description</p>
+            <h4>💰 Rent: ₹@Model.Rent / per day</h4>
+
+            <!-- Ratings Section -->
+            <h4>⭐ Ratings & Reviews</h4>
+
+            @if (Model.Ratings != null && Model.Ratings.Any())
+            {
+                foreach (var rating in Model.Ratings)
+                {
+                    <div class="rating-box">
+                        <strong>@rating.CustomerName</strong> -
+                        <span class="stars">⭐ @rating.Stars</span>
+                        <p>@rating.Review</p>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>No ratings yet. Be the first to rate!</p>
+            }
+
+            <!-- Add Rating Form -->
+            <h4>📝 Add Your Rating</h4>
+            <form asp-action="AddRating" asp-controller="Ratings" method="post">
+                <input type="hidden" name="RoomId" value="@Model.RoomId" />
+
+                <label>⭐ Select Stars:</label>
+                <select name="Stars" class="form-control">
+                    <option value="1">⭐ 1</option>
+                    <option value="2">⭐⭐ 2</option>
+                    <option value="3">⭐⭐⭐ 3</option>
+                    <option value="4">⭐⭐⭐⭐ 4</option>
+                    <option value="5">⭐⭐⭐⭐⭐ 5</option>
+                </select>
+
+                <label>📝 Review (Optional):</label>
+                <textarea name="Review" class="form-control"></textarea>
+
+                <button type="submit" class="btn btn-success mt-2">✅ Submit Rating</button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,166 @@
+﻿@model List<HotelBookingSystem.Models.Room>
+
+<div class="container-fluid px-4 py-5">
+    <!-- Page Header -->
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold text-gradient-primary mb-3">Our Luxury Rooms</h1>
+        <p class="lead text-muted">Discover your perfect stay with our exceptional accommodations</p>
+    </div>
+
+    <!-- Room Cards -->
+    <div class="row g-4">
+        @foreach (var room in Model)
+        {
+            <div class="col-xl-6">
+                <div class="card room-card h-100 border-0 overflow-hidden shadow-hover">
+                    <div class="row g-0 h-100">
+                        <!-- Room Image -->
+                        <div class="col-md-5 position-relative">
+                            <a asp-controller="Customer" asp-action="RoomDetails" asp-route-id="@room.RoomId" class="room-link h-100">
+                                @if (room.Image != null)
+                                {
+                                    <img src="data:image;base64,@(Convert.ToBase64String(room.Image))"
+                                         class="img-fluid h-100 w-100 object-cover"
+                                         alt="@room.RoomName">
+                                }
+                                else
+                                {
+                                    <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+                                         class="img-fluid h-100 w-100 object-cover"
+                                         alt="Room Image">
+                                }
+                          
+                            </a>
+                        </div>
+
+                        <!-- Room Details -->
+                        <div class="col-md-7 d-flex flex-column">
+                            <div class="card-body p-4">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                  
+                                    
+                                </div>
+
+                                <div class="mb-3">
+                                    <span class="text-muted d-flex align-items-center">
+                                        <i class="fas fa-map-marker-alt me-2 text-primary"></i> @room.Location
+                                    </span>
+                                </div>
+
+                                <p class="card-text text-muted mb-3">@room.Description</p>
+
+                                <div class="mt-auto">
+                                    <div class="d-flex flex-wrap gap-2 mb-3">
+                                        <span class="badge bg-light text-dark">
+                                            <i class="fas fa-wifi text-primary me-1"></i> WiFi
+                                        </span>
+                                        <span class="badge bg-light text-dark">
+                                            <i class="fas fa-tv text-primary me-1"></i> Smart TV
+                                        </span>
+                                        <span class="badge bg-light text-dark">
+                                            <i class="fas fa-snowflake text-primary me-1"></i> AC
+                                        </span>
+                                        <span class="badge bg-light text-dark">
+                                            <i class="fas fa-coffee text-primary me-1"></i> Coffee
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-footer bg-transparent border-top-0 p-3 pt-0">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a asp-controller="Customer" asp-action="RoomDetails" asp-route-id="@room.RoomId"
+                                       class="btn btn-outline-primary rounded-pill px-4">
+                                        <i class="fas fa-info-circle me-2"></i>View Details
+                                    </a>
+                                    <a asp-controller="Customer" asp-action="BookRoom" asp-route-roomId="@room.RoomId"
+                                       class="btn btn-primary rounded-pill px-4">
+                                        <i class="fas fa-calendar-check me-2"></i>Book Now
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+  
+</div>
+
+
+<style>
+    :root {
+        --primary-color: #4e66f8;
+        --primary-hover: #3a56f7;
+    }
+
+    .text-gradient-primary {
+        background: linear-gradient(90deg, var(--primary-color), #6c47ff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .shadow-hover {
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    .room-card {
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+        .room-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+    .object-cover {
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .room-link:hover .object-cover {
+        transform: scale(1.05);
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        color: #2c3e50;
+    }
+
+    .badge.bg-light {
+        font-weight: normal;
+        padding: 5px 10px;
+    }
+
+    .rounded-pill {
+        border-radius: 50px !important;
+    }
+
+    .btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+    }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            border-color: var(--primary-hover);
+        }
+
+    .btn-outline-primary {
+        color: var(--primary-color);
+        border-color: var(--primary-color);
+    }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+</style>
+
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
