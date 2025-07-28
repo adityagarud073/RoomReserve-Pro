@@ -1,6 +1,6 @@
-.
 
 🌟 Key Features
+
 Easy Room Booking: Browse and book available rooms with just a few clicks.
 User-Friendly Dashboard: Customers can view their booking history and manage reservations.
 Admin Panel: Manage room availability, approve/cancel bookings, and update details.
@@ -10,6 +10,7 @@ Customer Ratings & Feedback: Users can rate services and share their experiences
 
 
 🚀 Why Choose Our System?
+
 Fast & Secure: Built with ASP.NET Core MVC and MySQL for high performance.
 Responsive Design: Fully optimized for both mobile and desktop devices.
 Efficient Management: Simplifies booking processes for customers and admins alike.
